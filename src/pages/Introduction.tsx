@@ -14,7 +14,7 @@ export default function Introduction() {
             Your Trusted Source for Authentic Tech Products
           </p>
           <Link
-            to="/"
+            to="/products"
             className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
           >
             Shop Now <ArrowRight className="w-5 h-5" />
@@ -91,7 +91,7 @@ export default function Introduction() {
             we've got you covered with competitive prices and expert support.
           </p>
           <Link
-            to="/"
+            to="/products"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/90 font-semibold"
           >
             View Our Collection <ArrowRight className="w-5 h-5" />
