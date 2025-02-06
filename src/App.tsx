@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import OrderTracking from "./pages/OrderTracking";
+import Introduction from "./pages/Introduction";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -16,7 +17,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Introduction />} />
+          <Route path="/products" element={<Index />} />
           <Route path="/orders" element={<OrderTracking />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

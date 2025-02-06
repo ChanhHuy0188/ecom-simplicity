@@ -7,9 +7,12 @@ export default function Navbar({ openCart }: { openCart: () => void }) {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="text-xl font-semibold text-gray-800">
-            Store
+            Chánh Huy Đẹp Trai
           </Link>
           <div className="flex items-center gap-6">
+            <Link to="/products" className="text-gray-600 hover:text-gray-800">
+              Products
+            </Link>
             <Link to="/orders" className="text-gray-600 hover:text-gray-800">
               Orders
             </Link>
