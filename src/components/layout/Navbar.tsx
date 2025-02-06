@@ -1,4 +1,5 @@
-import { ShoppingCart } from "lucide-react";
+
+import { ShoppingCart, User } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Navbar({ openCart }: { openCart: () => void }) {
@@ -15,6 +16,9 @@ export default function Navbar({ openCart }: { openCart: () => void }) {
             </Link>
             <Link to="/orders" className="text-gray-600 hover:text-gray-800">
               Orders
+            </Link>
+            <Link to="/auth" className="text-gray-600 hover:text-gray-800">
+              <User className="h-6 w-6" />
             </Link>
             <button
               onClick={openCart}
