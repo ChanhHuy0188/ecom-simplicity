@@ -1,4 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductCardProps {
   id: number;
@@ -9,8 +10,10 @@ interface ProductCardProps {
 
 export default function ProductCard({ id, name, price, image }: ProductCardProps) {
   const { toast } = useToast();
+  const { addItem } = useCart();
 
   const handleAddToCart = () => {
+    addItem({ id, name, price, image });
     toast({
       title: "Added to cart",
       description: `${name} has been added to your cart.`,

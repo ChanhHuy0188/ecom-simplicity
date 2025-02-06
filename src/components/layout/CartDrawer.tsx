@@ -1,5 +1,6 @@
-import { X } from "lucide-react";
+import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/contexts/CartContext";
 
 export default function CartDrawer({
   isOpen,
@@ -9,6 +10,9 @@ export default function CartDrawer({
   onClose: () => void;
 }) {
   const { toast } = useToast();
+  const { items, updateQuantity, removeItem } = useCart();
+
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
     toast({
@@ -37,14 +41,71 @@ export default function CartDrawer({
               </button>
             </div>
             <div className="p-4 flex flex-col h-[calc(100vh-180px)]">
-              <div className="flex-1">
-                <p className="text-gray-500 text-center mt-10">
-                  Your cart is empty
-                </p>
+              <div className="flex-1 overflow-y-auto">
+                {items.length === 0 ? (
+                  <p className="text-gray-500 text-center mt-10">
+                    Your cart is empty
+                  </p>
+                ) : (
+                  <div className="space-y-4">
+                    {items.map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex items-center gap-4 py-4 border-b"
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="h-16 w-16 object-cover rounded"
+                        />
+                        <div className="flex-1">
+                          <h3 className="text-sm font-medium">{item.name}</h3>
+                          <p className="text-sm text-gray-500">
+                            ${item.price * item.quantity}
+                          </p>
+                          <div className="flex items-center gap-2 mt-2">
+                            <button
+                              onClick={() =>
+                                updateQuantity(item.id, Math.max(0, item.quantity - 1))
+                              }
+                              className="p-1 hover:bg-gray-100 rounded"
+                            >
+                              <Minus className="h-4 w-4" />
+                            </button>
+                            <span className="text-sm">{item.quantity}</span>
+                            <button
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + 1)
+                              }
+                              className="p-1 hover:bg-gray-100 rounded"
+                            >
+                              <Plus className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => removeItem(item.id)}
+                              className="p-1 hover:bg-gray-100 rounded ml-2"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
+              {items.length > 0 && (
+                <div className="border-t pt-4 mt-4">
+                  <div className="flex justify-between mb-4">
+                    <span className="font-medium">Total</span>
+                    <span className="font-medium">${total.toFixed(2)}</span>
+                  </div>
+                </div>
+              )}
               <button
                 onClick={handleCheckout}
-                className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary/90 transition-colors"
+                disabled={items.length === 0}
+                className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Checkout
               </button>
